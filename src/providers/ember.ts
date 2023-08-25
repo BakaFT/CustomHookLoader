@@ -1,4 +1,4 @@
-import { collectHooksArray, wrap_method } from "./_utils.js";
+import { collectHooksArray, getLogger, wrap_method } from "./_utils.js";
 
 const Hook_extend = (Ember: any, EMBER_HOOKS: Array<EmberHook>) => {
     wrap_method(Ember.Component, 'extend', function (original: any, args: Array<any>) {
@@ -29,6 +29,7 @@ const Hook_extend = (Ember: any, EMBER_HOOKS: Array<EmberHook>) => {
 }
 
 export const RegisterHook_ember =  (context: PenguInitContext) => {
+    const logger = getLogger()
     context.rcp.postInit('rcp-fe-ember-libs', async api => {
         const EMBER_HOOKS = await collectHooksArray("ember")
         wrap_method(api, 'getEmber', function (original: any, args: any) {
@@ -39,4 +40,5 @@ export const RegisterHook_ember =  (context: PenguInitContext) => {
             })
         })
     })
+    logger.info("Successfully registered provider 'ember'")
 }

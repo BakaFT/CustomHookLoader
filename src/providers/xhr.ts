@@ -1,6 +1,6 @@
 import { proxy } from 'ajax-hook'
 import { XhrHook } from '../types/XhrHook'
-import { collectHooksArray } from './_utils'
+import { collectHooksArray, getLogger } from './_utils'
 
 const Hook_xhr = (XHR_HOOKS:XhrHook[]) => {
     proxy({
@@ -18,8 +18,10 @@ const Hook_xhr = (XHR_HOOKS:XhrHook[]) => {
 
 
 export const RegisterHook_xhr = (context:PenguInitContext) => {
+    const logger = getLogger()
     context.rcp.postInit('rcp-fe-lol-l10n', async () => {
         const XHR_HOOKS = await collectHooksArray("xhr")
         Hook_xhr(XHR_HOOKS)
     })
+    logger.info("Successfully registered provider 'xhr'")
 }
