@@ -14,7 +14,7 @@ Hook your game client in a more easy and structured way by putting a file or add
 
   - Put hook file into `./hooks/HOOK_PROVIDER_NAME/`
 
-  - Add a remote hook file URL into `./hooks/HOOK_PROVIDER_NAME/_remote`
+  - Add a remote hook file URL into `./hooks/HOOK_PROVIDER_NAME/_remote.js`
 - [x] Support various custom hook provider
 
   - [x] Ember.js Component Hook
@@ -63,11 +63,11 @@ A typical folder structure with some hooks should be like(with automatically cre
 
 > For Devs:
 >
-> This is designed for those hooks that do not need update frequently or do not need configs
+> This is designed for those hooks that do not need update frequently or **need** configs
 
-This way CHL will load the hook from local file.
+This way CustomHookLoader will load the hook from local file.
 
-Get the hook file from somewhere and put it under the **CORRESPODING** provider folder.
+Get the hook file from somewhere and put it under the **CORRESPONDING** provider folder.
 
 ```javascript
 ├── plugins
@@ -85,9 +85,9 @@ Get the hook file from somewhere and put it under the **CORRESPODING** provider 
 
 > For Devs:
 >
-> This is usually for those hooks that do not need configs
+> This is usually for those hooks that **do not need** configs
 
-This way CHL will load the hook from remote.
+This way CustomHookLoader will load the hook from remote.
 
 Every hook provider got a `_remote.js` , it should contain a structure like:
 
