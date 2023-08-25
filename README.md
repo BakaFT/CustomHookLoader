@@ -86,6 +86,8 @@ Get the hook file from somewhere and put it under the **CORRESPONDING** provider
 > For Devs:
 >
 > This is usually for those hooks that **do not need** configs
+>
+> Make sure the remote script's `Content-type` header should not be `text/plain`
 
 This way CustomHookLoader will load the hook from remote.
 
