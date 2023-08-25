@@ -26,15 +26,15 @@ Hook your game client in a more easy and structured way by putting a file or add
 
 # Installation
 
-1. Download from Releases
+1. Download from [Releases](https://github.com/BakaFT/CustomHookLoader/releases)
 
-2. Create a new folder under `plugins` folder and put `index.js` in it
-
-**After first run, this plugin will create folders along with a `_remote.js` for providers if they don't exist**
+2. Put `CustomHookLoader` under `plugins`
 
 That's it. You can get hooks from Pengu Loader Community and install them by instructions given by authors.
 
-A typical folder structure with some hooks should be like:
+> **After first run, this plugin will create folders along with a `_remote.js` for providers if they don't exist**
+
+A typical folder structure with some hooks should be like(with automatically created folders):
 
 ```powershell
 ├── assets
