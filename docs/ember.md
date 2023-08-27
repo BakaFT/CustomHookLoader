@@ -27,8 +27,13 @@ Let's take a look at some examples
 
 some of you may seen the `Bench Killer` plugin by me. Let's see how it works.
 
+This file contains two hooks. It match `champion-bench` and `champion-bench-item` then hook `runTaks` function of them.
+
+Before calling original `runTask`, it change the second argument(task execution delay) to 0, making that swap cooldown reset immediately. And since this function is only used to schedule swapping cooldown in these two mixin  so it's safe to hook it.
+
 ```javascript
-const BENCH_KILLER = [
+// You must export a array of hooks by using "export default"
+const CHAMP_BENCH = [
     {
         matcher: 'champion-bench',
         wraps: [
@@ -40,7 +45,9 @@ const BENCH_KILLER = [
                 },
             },
         ],
-    },
+    }
+]
+const CHAMP_BENCH_ITEM = [
     {
         matcher: 'champion-bench-item',
         wraps: [
@@ -52,7 +59,13 @@ const BENCH_KILLER = [
                 },
             },
         ],
-    },
+    }
+]
+
+// It's recommended using this syntax to export groups of hooks in one file
+export default [
+    ...CHAMP_BENCH,
+    ...CHAMP_BENCH_ITEM,
 ]
 ```
 
@@ -67,38 +80,41 @@ If you want  load a `ember` hook from CustomHookLoader. You need to construct it
 - `wraps` is a list of hooks, used to hook methods of a component.
 
 ```javascript
-{
-    matcher: "the-classname-you-want-to-match",
-    wraps:[
-        {
-         	name: "function-member-name-of-this-mixin",
-            replacement: function(original,args){
-                // do some edit on args
-       
-                // original(...args) equals to calling it as it was
-                const res = original(...args)
-                
-                // do some edit on res
-                
-                // Remeber to return the result at the end
-                return res;
+// use "export default ARRAY_OF_HOOKS" is a must
+export default [
+    {
+        matcher: "the-classname-you-want-to-match",
+        wraps: [
+            {
+                name: "function-member-name-of-this-mixin",
+                replacement: function (original, args) {
+                    // do some edit on args
+
+                    // original(...args) equals to calling it as it was
+                    const res = original(...args)
+
+                    // do some edit on res
+
+                    // Remeber to return the result at the end
+                    return res;
+                }
             }
-        }
-    ],
-    mixin: (Ember,args)=>(
-        {
-    		addingNewMeber: "Hi:), this is a new string member",
-            // assume this exist in source code
-            overriding: "This member is forced to be mine",
-            
-            // assume this function member exist in source code
-            functionMember(){
-                // YOU SHOULD ALWAYS COPY THE ORIGINAL CODE HERE TO PREVENT ISSUES
-                // And do what you want to do now.
+        ],
+        mixin: (Ember, args) => (
+            {
+                addingNewMeber: "Hi:), this is a new string member",
+                // assume this exist in source code
+                overriding: "This member is forced to be mine",
+
+                // assume this function member exist in source code
+                functionMember() {
+                    // YOU SHOULD ALWAYS COPY THE ORIGINAL CODE HERE TO PREVENT ISSUES
+                    // And do what you want to do now.
+                }
             }
-    	}
-    )
-}
+        )
+    }
+]
 ```
 
 # Difference between mixin and wraps
