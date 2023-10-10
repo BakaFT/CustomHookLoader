@@ -28,17 +28,22 @@ const Hook_extend = (Ember: any, EMBER_HOOKS: Array<EmberHook>) => {
     });
 }
 
-export const RegisterHook_ember =  (context: PenguInitContext) => {
+export const RegisterHook_ember = (context: PenguInitContext) => {
     const logger = getLogger()
-    context.rcp.postInit('rcp-fe-ember-libs', async api => {
-        const EMBER_HOOKS = await collectHooksArray("ember")
-        wrap_method(api, 'getEmber', function (original: any, args: any) {
-            const res = original(...args)
-            return res.then((Ember: any) => {
-                Hook_extend(Ember, EMBER_HOOKS)
-                return Ember
+    context.rcp.postInit(
+        'rcp-fe-ember-libs',
+        async api => {
+            const EMBER_HOOKS = await collectHooksArray("ember")
+            wrap_method(api, 'getEmber', function (original: any, args: any) {
+                const res = original(...args)
+                return res.then((Ember: any) => {
+                    Hook_extend(Ember, EMBER_HOOKS)
+                    return Ember
+                })
             })
-        })
-    })
+        },
+        true
+        
+    )
     logger.info("Successfully registered provider 'ember'")
 }

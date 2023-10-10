@@ -16,7 +16,7 @@ interface PluginFS {
 
 interface Rcp {
     preInit(name: string, callback: (provider: any) => any): void;
-    postInit(name: string, callback: (api: any) => any): void;
+    postInit(name: string, callback: (api: any) => any, blocking?: boolean): void;
     whenReady(name: string): Promise<any>;
     whenReady(names: string[]): Promise<any[]>;
     get(name: string): object | undefined;
