@@ -41,6 +41,8 @@ jobs:
         release_name: Release ${{ github.run_number }}
         draft: false
         prerelease: false
+    - name: test
+      run: pwd && ls
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       with:
