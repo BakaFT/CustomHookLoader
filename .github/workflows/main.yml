@@ -24,10 +24,11 @@ jobs:
     - name: Archive docs
       run: tar -czvf docs.tar.gz docs
 
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+  # release:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Create Release
